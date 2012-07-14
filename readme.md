@@ -44,12 +44,15 @@ Outdent (un-indent) the instantiating element by the specified distance (in cell
 
 ### SCSS ###
 
+    /* Set defaults for a small, simple demo layout */
     $width: 240px;
     $cols: 4;
     $gutter: 10px;
-    $direction: left;
-    $cellmininnerwidth: 5px;
+    
+    /* Import cell-layout SCSS file */
+    @import "cell-layout";
 
+    /* Hook the various mixins up to whatever CSS class(es) you like */
     .layout { @include cell-container; }
     .cell { @include width(1); }
     .doublecell { @include width(2); }
