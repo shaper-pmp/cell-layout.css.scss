@@ -1,0 +1,61 @@
+
+/* Set defaults */
+
+$width: 960px !default;             /* Inner width of container */
+$cols: 16 !default;                 /* Number of horizontal columns */
+$gutter: 10px !default;             /* Margin between cells/container edges */
+$direction: "left" !default;        /* Float cells left or right */
+$cellmininnerwidth: 5px !default;   /* Minimum possible inner width of any cell */
+
+/* Derived convenience values */
+
+$cellmargin: $gutter / 2;
+$cellouterwidth: $width / $cols; /* Width of single cell including margins */
+$cellinnerwidth: $cellouterwidth - ($cellmargin * 2); /* Width of cell not including margins */
+
+/* Container mixin */
+
+@mixin cell-container {
+  width: $width;
+  padding: $cellmargin;
+  
+  & > * {   /* Set up layout cells (any element that's a direct child of the container) */
+    float: unquote($direction);
+    margin: $cellmargin;
+  }
+  
+  &:after { /* Force containers to enclose all (floated) child cells */
+    content: ".";
+    display: block;
+    height: 0px;
+    visibility: hidden;
+    clear: both;
+    zoom: 1;
+  }
+  
+}
+
+/* Cell mixins */
+
+/*  Force cell to start new row */
+@mixin new-row {
+  clear: both;
+}
+
+/* Set cell to $colspan cells in width */
+@mixin width($colspan:1) {
+  $mywidth: $cellinnerwidth + ($cellouterwidth * ($colspan - 1));
+  width: if($mywidth > $cellmininnerwidth, $mywidth, $cellmininnerwidth);
+}
+
+/* Indent cell by $colspan cells */
+@mixin push($colspan:0) {
+  margin-left:  if($direction == left,  $cellmargin + ($cellouterwidth * $colspan), $cellmargin);
+  margin-right: if($direction == right, $cellmargin + ($cellouterwidth * $colspan), $cellmargin);
+}
+
+/* Outdent cell by $colspan cells */
+@mixin pull($colspan:0) {
+  margin-left:  if($direction == left,  (0 - ($cellouterwidth * $colspan)) + $cellmargin, $cellmargin);
+  margin-right: if($direction == right, (0 - ($cellouterwidth * $colspan)) + $cellmargin, $cellmargin);
+}
