@@ -2,6 +2,10 @@
 
 Simple, flexible cell-based layout in SASS that uses mixins to avoid the need for non-semantic class names in your markup.
 
+No more nasty, non-semantic "span2" or "offset5" classes.  Adapt the framework to fit your existing markup by adding the width() mixin to your existing CSS classes, instead of having to re-write your markup to change or add classes (Twitter Bootstrap, I'm looking at you ಠ_ಠ).
+
+Inspired by an original proof-of-concept in LESS by [Olly Nevard](http://ollynevard.co.uk/).
+
 ## Config variables ##
 
 **$width** (default: 960px): Inner width of container (any CSS unit permitted).
