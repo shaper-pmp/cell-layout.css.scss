@@ -56,15 +56,21 @@ Outdent (un-indent) the instantiating element by the specified distance (in cell
 ### Markup ###
 
     <div class="layout">
-      <div class="cell">Span 1</div>
-      <div class="cell">Span 1</div>
-      <div class="cell">Span 1</div>
-      <div class="cell">Span 1</div>
+      <div class="cell">A</div>
+      <div class="cell">B</div>
+      <div class="cell">C</div>
+      <div class="cell">D</div>
 
-      <div class="doublecell startrow">Span 2</div>
-      <div class="cell indent">Span 1 indented 1</div>
+      <div class="doublecell startrow">E <!-- 2 cells wide --></div>
+      <div class="cell indent">F <!-- Indented by 1 cell-width --></div>
 
-      <div class="doublecell startrow">Span 2</div>
-      <div class="doublecell outdent">Span 2 outdented 1 (overlaps previous cell by 1 cell-width)</div>
-      <div class="cell">Span 1</div>
+      <div class="doublecell startrow">G</div>
+      <div class="doublecell outdent">H <!-- Overlaps previous cell by 1 cell-width --></div>
+      <div class="cell">I</div>
     </div>
+
+### Result ###
+
+    [A_____] [B_____] [C_____] [D_____]
+    [E______________]          [F_____]
+    [G_______[H______________] [I_____]
