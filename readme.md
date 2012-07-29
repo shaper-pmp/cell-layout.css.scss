@@ -8,7 +8,9 @@ Inspired by an original proof-of-concept in LESS by [Olly Nevard](http://ollynev
 
 ## Config variables ##
 
-**$width** (default: 960px): Inner width of container (any CSS unit permitted).
+Passed to various mixins:
+
+**$layoutwidth** (default: 960px): Inner width of container (any CSS unit permitted).
 
 **$cols** (default: 16): Number of horizontal columns in layout.
 
@@ -45,20 +47,20 @@ Outdent (un-indent) the instantiating element by the specified distance (in cell
 ### SCSS ###
 
     /* Set defaults for a small, simple demo layout */
-    $width: 240px;
     $cols: 4;
+    $width: 240px;
     $gutter: 10px;
     
     /* Import cell-layout SCSS file */
     @import "cell-layout";
 
     /* Hook the various mixins up to whatever CSS class(es) you like */
-    .layout { @include cell-container; }
-    .cell { @include width(1); }
-    .doublecell { @include width(2); }
+    .layout { @include cell-container($cols, $width, $gutter); }
+    .cell { @include width(1, $cols, $width, $gutter); }
+    .doublecell { @include width(2, $cols, $width, $gutter); }
     .startrow { @include new-line; }
-    .indent { @push(1) }
-    .outdent { @pull(1) }
+    .indent { @push(1, $cols, $width, $gutter) }
+    .outdent { @pull(1, $cols, $width, $gutter) }
 
 ### Markup ###
 

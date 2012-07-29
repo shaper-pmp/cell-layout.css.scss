@@ -1,22 +1,22 @@
 
-/* Set defaults */
+/* Defaults (for reference) */
 
-$width: 960px !default;             /* Inner width of container */
-$cols: 16 !default;                 /* Number of horizontal columns */
-$gutter: 10px !default;             /* Margin between cells/container edges */
-$direction: "left" !default;        /* Float cells left or right */
-$cellmininnerwidth: 5px !default;   /* Minimum possible inner width of any cell */
-
-/* Derived convenience values */
-
-$cellmargin: $gutter / 2;
-$cellouterwidth: $width / $cols; /* Width of single cell including margins */
-$cellinnerwidth: $cellouterwidth - ($cellmargin * 2); /* Width of cell not including margins */
+/* $layoutwidth: 960px !default;             Inner width of container */
+/* $cols: 16 !default;                 Number of horizontal columns */
+/* $gutter: 10px !default;             Margin between cells/container edges */
+/* $direction: "left" !default;        Float cells left or right */
+/* $cellmininnerwidth: 5px !default;   Minimum possible inner width of any cell */
 
 /* Container mixin */
 
-@mixin cell-container {
-  width: $width;
+@mixin cell-container($cols:16, $layoutwidth:960px, $gutter:10px, $cellmininnerwidth:5px, $direction:left) {
+  
+  /* Derived convenience values */
+  $cellmargin: $gutter / 2;
+  $cellouterwidth: $layoutwidth / $cols; /* Width of single cell including margins */
+  $cellinnerwidth: $cellouterwidth - ($cellmargin * 2); /* Width of cell not including margins */
+  
+  width: $layoutwidth;
   padding: $cellmargin;
   
   & > * {   /* Set up layout cells (any element that's a direct child of the container) */
@@ -43,19 +43,32 @@ $cellinnerwidth: $cellouterwidth - ($cellmargin * 2); /* Width of cell not inclu
 }
 
 /* Set cell to $colspan cells in width */
-@mixin width($colspan:1) {
+@mixin width($colspan:1, $cols:16, $layoutwidth:960px, $gutter:10px, $cellmininnerwidth:5px) {
+  /* Derived convenience values */
+  $cellmargin: $gutter / 2;
+  $cellouterwidth: $layoutwidth / $cols; /* Width of single cell including margins */
+  $cellinnerwidth: $cellouterwidth - ($cellmargin * 2); /* Width of cell not including margins */
+  
   $mywidth: $cellinnerwidth + ($cellouterwidth * ($colspan - 1));
   width: if($mywidth > $cellmininnerwidth, $mywidth, $cellmininnerwidth);
 }
 
 /* Indent cell by $colspan cells */
-@mixin push($colspan:0) {
+@mixin push($colspan:0, $cols:16, $layoutwidth:960px, $gutter:10px, $direction:left) {
+  /* Derived convenience values */
+  $cellmargin: $gutter / 2;
+  $cellouterwidth: $layoutwidth / $cols; /* Width of single cell including margins */
+
   margin-left:  if($direction == left,  $cellmargin + ($cellouterwidth * $colspan), $cellmargin);
   margin-right: if($direction == right, $cellmargin + ($cellouterwidth * $colspan), $cellmargin);
 }
 
 /* Outdent cell by $colspan cells */
-@mixin pull($colspan:0) {
+@mixin pull($colspan:0, $cols:16, $layoutwidth:960px, $gutter:10px, $direction:left) {
+  /* Derived convenience values */
+  $cellmargin: $gutter / 2;
+  $cellouterwidth: $layoutwidth / $cols; /* Width of single cell including margins */
+
   margin-left:  if($direction == left,  (0 - ($cellouterwidth * $colspan)) + $cellmargin, $cellmargin);
   margin-right: if($direction == right, (0 - ($cellouterwidth * $colspan)) + $cellmargin, $cellmargin);
 }
